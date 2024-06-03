@@ -9,11 +9,13 @@
                     <span class="timestamp">{{message.date}}</span>
                     <div class="content">
                         {{message.message}}
+                        {% if message.image %}
+                            <div class="image">
+                                <img src="{% static message.image %}" style="max-width: 100%;">
+                            </div>
+                        {% endif %}
                     </div>
-                    {% if message.image %}
-                        <img src="{% static message.image %}" style="max-width: 100%;">
-                    {% endif %}
-                    <div id="like" onclick="like('{{message.id}}',this)">
+                    <div id="like" {% if user.is_authenticated %} onclick="like('{{message.id}}',this)" {% endif %}>
                         <i id="likeIcon" class="fa fa-heart fa-outline" style="font-size:30px;margin-top: 40px;margin-right: 10px;"></i>
                         <small id="likeNumber" style="font-size:15px;color:black;">{{message.likes}} likes</small>
                     </div>

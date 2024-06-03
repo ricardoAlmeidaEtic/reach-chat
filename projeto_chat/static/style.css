@@ -74,6 +74,11 @@ body {
     margin-top: 5px;
 }
 
+.image{
+    margin-top: 10px;
+    width: 100%;
+}
+
 .who-to-follow,.trending-hashtags {
     margin-top: 20px;
     padding-top: 10px;
