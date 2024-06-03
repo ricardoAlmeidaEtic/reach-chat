@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block 'content' %}
+<h4>Login</h4>
+<form method="post" style="margin-top: 130px;">
+  {% csrf_token %}
+  {{ form }}
+  <button type="submit">Login</button>
+</form>
+{%endblock%}

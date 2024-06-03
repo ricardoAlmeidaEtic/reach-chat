@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static%}
+{% block 'content' %}
+    <div class="container">
+        <div id="tweet-list">
+            {%for message in object_list%}
+                <div class="tweet" id="tweet-{{message.id}}">
+                    <span class="user">{{message.user}}</span>
+                    <span class="timestamp">{{message.date}}</span>
+                    <div class="content">
+                        {{message.message}}
+                    </div>
+                    {% if message.image %}
+                        <img src="{% static message.image %}" style="max-width: 100%;">
+                    {% endif %}
+                    <div id="like" onclick="like('{{message.id}}',this)">
+                        <i id="likeIcon" class="fa fa-heart fa-outline" style="font-size:30px;margin-top: 40px;margin-right: 10px;"></i>
+                        <small id="likeNumber" style="font-size:15px;color:black;">{{message.likes}} likes</small>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        
+        {% if user.is_authenticated %}
+            <form method="post" enctype="multipart/form-data" style="margin-top: 20px;">
+                {% csrf_token %}
+                <textarea id="your_message" placeholder="Enter your message" style="width:100%"></textarea>
+                <input type="file" id="your_image" accept="image/*">
+                <button type="submit" id="submitMessage">Submit</button>
+            </form>
+        {% else %}
+            <div class="log in" style="margin-top: 100px;">
+                <br>
+                You are not logged in, if you want to send a message please do so.
+                <br>
+                <a href="{% url 'signup' %}">signup</a>
+                <a href="{% url 'login' %}">login</a>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}
